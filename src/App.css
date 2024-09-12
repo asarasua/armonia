@@ -1,38 +1,116 @@
-.App {
+/* General styling */
+.app {
   text-align: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.note-grid-wrapper {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center; /* Center the note grid */
+}
+
+.note-grid {
+  position: relative; /* So we can position notes absolutely */
+  width: 580px; /* Reduced width to better center notes */
+  height: 200px; /* Adjust height so all notes fit */
+}
+
+.note {
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  background-color: gray;
   color: white;
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: 10px;
+  position: absolute; /* Position each note absolutely within the grid */
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
-.App-link {
-  color: #61dafb;
+/* Custom positions to create the staircase effect */
+.note-1 {
+  bottom: 0px; /* Lowest note */
+  left: 10px; /* Positioned further to the left */
+  background-color: red;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.note-2 {
+  bottom: 20px;
+  left: 80px;
+}
+
+.note-3 {
+  bottom: 40px;
+  left: 150px;
+}
+
+.note-4 {
+  bottom: 60px;
+  left: 220px;
+  background-color: turquoise;
+}
+
+.note-5 {
+  bottom: 80px;
+  left: 290px;
+}
+
+.note-6 {
+  bottom: 100px;
+  left: 360px;
+}
+
+.note-7 {
+  bottom: 120px;
+  left: 430px;
+  background-color: orange;
+}
+
+/* The 8th note (1st note in the next octave) */
+.note-8 {
+  bottom: 140px;
+  left: 500px;
+  background-color: red;
+}
+
+/* Keyframes for the size animation */
+@keyframes playAnimation {
+  0% {
+    transform: scale(1); /* Default size */
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    transform: scale(1.2); /* Slightly larger */
   }
+  100% {
+    transform: scale(1); /* Back to default size */
+  }
+}
+
+/* Apply the animation when the note is active */
+.note.playing {
+  animation: playAnimation 0.5s ease-in-out;
+}
+
+.controls {
+  margin-top: 20px;
+}
+
+label {
+  margin-right: 20px;
+}
+
+input[type="number"] {
+  padding: 5px;
+  width: 50px;
+  font-size: 16px;
+}
+
+select {
+  padding: 5px;
+  font-size: 16px;
 }
