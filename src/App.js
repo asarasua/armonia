@@ -3,7 +3,7 @@ import Soundfont from 'soundfont-player';
 import './App.css';
 
 
-const allNotes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+const allNotes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B'];
 const majorScaleIntervals = [0, 2, 4, 5, 7, 9, 11];
 
 let piano = null;
