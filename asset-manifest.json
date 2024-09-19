@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/armonia/static/css/main.04b8e71c.css",
-    "main.js": "/armonia/static/js/main.ab7b2710.js",
+    "main.css": "/armonia/static/css/main.19e65775.css",
+    "main.js": "/armonia/static/js/main.684ddb66.js",
     "static/js/453.6a1dcdb4.chunk.js": "/armonia/static/js/453.6a1dcdb4.chunk.js",
     "index.html": "/armonia/index.html",
-    "main.04b8e71c.css.map": "/armonia/static/css/main.04b8e71c.css.map",
-    "main.ab7b2710.js.map": "/armonia/static/js/main.ab7b2710.js.map",
+    "main.19e65775.css.map": "/armonia/static/css/main.19e65775.css.map",
+    "main.684ddb66.js.map": "/armonia/static/js/main.684ddb66.js.map",
     "453.6a1dcdb4.chunk.js.map": "/armonia/static/js/453.6a1dcdb4.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.04b8e71c.css",
-    "static/js/main.ab7b2710.js"
+    "static/css/main.19e65775.css",
+    "static/js/main.684ddb66.js"
   ]
 }
