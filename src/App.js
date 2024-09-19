@@ -90,6 +90,13 @@ const App = () => {
                     handlePlayNote(keyMap[event.key]);
                 }
             }
+            // Handle up and down arrow keys for changing the octave
+            if (event.key === 'ArrowUp') {
+                setOctave(prevOctave => Math.min(prevOctave + 1, 8)); // Max octave is 8
+            }
+            if (event.key === 'ArrowDown') {
+                setOctave(prevOctave => Math.max(prevOctave - 1, 1)); // Min octave is 1
+            }
         };
 
         window.addEventListener('keydown', handleKeyDown);
