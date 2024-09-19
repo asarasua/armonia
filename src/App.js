@@ -1,16 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import Soundfont from 'soundfont-player';
 import './App.css';
 
 
 const allNotes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B'];
 const majorScaleIntervals = [0, 2, 4, 5, 7, 9, 11];
+const minorScaleIntervals = [0, 2, 3, 5, 7, 8, 10];
 
 let piano = null;
 
 const App = () => {
     const [key, setKey] = useState('C');
     const [octave, setOctave] = useState(4);
+    const [mode, setMode] = useState('Major');
     const noteTimeouts = useRef(Array(8).fill(null));
 
     useEffect(() => {
@@ -25,7 +27,9 @@ const App = () => {
         const rootIndex = allNotes.indexOf(key);
         if (rootIndex === -1) return [];
 
-        return majorScaleIntervals.map((interval, i) => {
+        const intervals = mode === 'Major' ? majorScaleIntervals : minorScaleIntervals;
+
+        return intervals.map((interval, i) => {
             let noteIndex = (rootIndex + interval) % allNotes.length;
             let noteOctave = octave; // Default to the current octave
 
@@ -33,7 +37,7 @@ const App = () => {
                 noteOctave += 1;
             }
 
-            return { note: allNotes[noteIndex], octave: noteOctave };
+            return {note: allNotes[noteIndex], octave: noteOctave};
         });
     };
 
@@ -103,7 +107,7 @@ const App = () => {
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [key, octave]);
+    }, [key, octave, mode]);
 
     const handleOctaveChange = (event) => {
         setOctave(Number(event.target.value));
@@ -113,30 +117,43 @@ const App = () => {
         setKey(event.target.value);
     };
 
+    const handleModeChange = (event) => {
+        setMode(event.target.value);
+    };
+
     const scaleNotes = getScaleNotesWithOctave();
+
+    const noteLabels = mode === 'Major' ? ['1', '2', '3', '4', '5', '6', '7', '1']
+        : ['1', '2', 'b3', '4', '5', 'b6', 'b7', '1'];
+
+    const noteColors = mode === 'Major' ? ['red', 'gray', 'gray', 'turquoise', 'gray', 'gray', 'orange', 'red']
+        : ['red', 'gray', 'turquoise', 'gray', 'gray', 'orange', 'turquoise', 'red'];
 
     return (
         <div className="app">
-            <h1>Major</h1>
+            <h1>{mode} Scale Piano Player</h1>
 
-            <div className="note-grid-wrapper">
+            <div className="note-grid-wrapper"> {/* Center the note grid using Flexbox */}
                 <div className="note-grid">
                     {scaleNotes.map((_, index) => (
                         <div
                             key={index}
-                            id={`note-${index + 1}`}
-                            className={`note note-${index + 1}`}
+                            id={`note-${index + 1}`} // Assign each note a unique ID
+                            className={`note note-${index + 1}`} // Give each note a unique class
                             onClick={() => handlePlayNote(index)}
+                            style={{backgroundColor: noteColors[index]}} // Apply dynamic background color
                         >
-                            {index + 1}
+                            {noteLabels[index]} {/* Display the appropriate label */}
                         </div>
                     ))}
+                    {/* The 8th button to play the tonic (1st note) in the next octave */}
                     <div
-                        id="note-8"
-                        className="note note-8"
-                        onClick={() => handlePlayNote(0, true)}
+                        id="note-8" // Unique ID for the 8th note
+                        className="note note-8" // Use the correct class "note-8"
+                        onClick={() => handlePlayNote(0, true)} // Play the first note in the next octave
+                        style={{backgroundColor: noteColors[7]}} // Apply dynamic background color
                     >
-                        1
+                        {noteLabels[7]} {/* Display the appropriate label for the octave */}
                     </div>
                 </div>
             </div>
@@ -161,9 +178,19 @@ const App = () => {
                         max="8"
                     />
                 </label>
+
+                <label>
+                    Mode:
+                    <select value={mode} onChange={handleModeChange}>
+                        <option value="Major">Major</option>
+                        <option value="Minor">Minor</option>
+                    </select>
+                </label>
             </div>
         </div>
     );
+
+
 };
 
 export default App;
